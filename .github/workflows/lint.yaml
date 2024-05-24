@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-   go-lint:
+   golint:
      name: lint
      runs-on: ubuntu-18.04
      steps:
