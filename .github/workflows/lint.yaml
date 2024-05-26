@@ -6,10 +6,8 @@ on:
       - main
       - go-codes
 
-
 jobs:
   golint:
-    name: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,7 +15,7 @@ jobs:
         with:
           go-version: '1.22'
 
-     - name: golang-lint
-       uses: golangci/golangci-lint-action@v6
-       with:
-         version: 1.58
+      - name: golang-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: 1.58
