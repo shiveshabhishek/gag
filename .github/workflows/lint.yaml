@@ -17,4 +17,4 @@ jobs:
       - name: golang-lint
         uses: golangci/golangci-lint-action@v5
         with:
-          version: latest
+          golangci_lint_flags: "--enable-all --exclude-use-default=false"
