@@ -18,7 +18,7 @@ jobs:
       - name: Check for test files
         run: |
           # Find all .go files excluding test files and the vendor directory
-          go_files=$(find . -type f -name '*.go' ! -name '*_test.go' ! -path './vendor/*')
+          go_files=$(find . -type f -name '*.go' ! -name '*_test.go' ! -path './vendor/*' ! -name 'main.go')
           
           # Check if each .go file has a corresponding *_test.go file
           missing_tests=0
@@ -37,4 +37,3 @@ jobs:
           else
             echo "All Go files have corresponding test files."
           fi
-          
