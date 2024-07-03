@@ -1,0 +1,39 @@
+name: Check for Test Files
+
+on: [push, pull_request]
+
+jobs:
+  check_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Check for test files
+        run: |
+          # Find all .go files excluding test files and the vendor directory
+          go_files=$(find . -type f -name '*.go' ! -name '*_test.go' ! -path './vendor/*')
+          
+          # Check if each .go file has a corresponding *_test.go file
+          missing_tests=0
+          for go_file in $go_files; do
+            base_name=$(basename $go_file .go)
+            test_file=$(dirname $go_file)/${base_name}_test.go
+            if [ ! -f $test_file ]; then
+              echo "Missing test file for: $go_file"
+              missing_tests=$((missing_tests+1))
+            fi
+          done
+
+          if [ $missing_tests -gt 0 ]; then
+            echo "Some Go files are missing corresponding test files. Please add the missing test files."
+            exit 1
+          else
+            echo "All Go files have corresponding test files."
+          fi
