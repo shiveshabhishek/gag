@@ -1,3 +1,3 @@
-module github.com/shiveshabhishek/gag
+module gag
 
 go 1.22.0
